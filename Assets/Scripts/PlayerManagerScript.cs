@@ -1,17 +1,23 @@
+using Unity.Mathematics;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManagerScript : MonoBehaviour
 {
     public float health;
     public bool isDead = false;
-    public Transform bullet, muzzle;
+    public Transform bullet, muzzle, damageText, damageTextSection;
+
+    public Slider slider;
 
     public float bulletSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        slider.maxValue = health;
+        slider.value = health;
         
     }
 
@@ -24,9 +30,13 @@ public class PlayerManagerScript : MonoBehaviour
         }
     }
     public void getDamage(float damage){
+
+        Instantiate(damageText, damageTextSection.position, quaternion.identity).GetComponent<TextMesh>().text = damage.ToString();
+
         if(health - damage > 0)
         {
             health -= damage;
+            slider.value = health;
         }
         else
         {
