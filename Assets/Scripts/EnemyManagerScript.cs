@@ -1,13 +1,17 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyManagerScript : MonoBehaviour
 {
     public float health;
     public float damage;
+
+    public Slider slider;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        slider.maxValue = health;
+        slider.value = health;        
     }
 
     // Update is called once per frame
@@ -34,6 +38,7 @@ public class EnemyManagerScript : MonoBehaviour
         if(health - damage > 0)
         {
             health -= damage;
+            slider.value = health;
         }
         else
         {
